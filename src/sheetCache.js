@@ -1,7 +1,10 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 const cron = require('node-cron');
-const creds = require('../service_account.json');
 const { JWT } = require('google-auth-library');
+
+// Load Google credentials from env var (set in Northflank Secret Groups)
+if (!process.env.GOOGLE_CREDS_JSON) throw new Error('GOOGLE_CREDS_JSON env var is missing!');
+const creds = JSON.parse(process.env.GOOGLE_CREDS_JSON);
 
 let cachedEvents = [];
 
